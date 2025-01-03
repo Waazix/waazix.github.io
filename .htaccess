@@ -1,0 +1,2 @@
+RewriteEngine On
+RewriteRule ^love$ love.html [L]
