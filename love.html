@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <title>Chargement...</title>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#E41B17">
+    
+    <style>
+        body {
+            background: #fdf6f0;
+            font-size: 2rem;
+            color: #E41B17;
+            text-align: justify;
+            line-height: 1;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        const body = document.querySelector('body');
+        const cookieName = "love-valentin";
+
+        if(!getCookie()) {
+            setCookie(1);
+        } else {
+            setCookie(getCookie() + 1);
+        }
+        
+        const cookieCount = getCookie();
+        
+        document.title = "❤ " + cookieCount + " ❤";
+        const hearts = "❤".repeat(cookieCount);
+        body.innerText = hearts;
+        
+        function getCookie() {
+            const cookie = document.cookie.split('; ').find(row => row.startsWith(cookieName + '='));
+            const value = cookie ? decodeURIComponent(cookie.split('=')[1]) : null;
+            return value && !isNaN(value) ? parseInt(value, 10) : null;
+        }
+        
+        function setCookie(value) {
+            if (isNaN(value) || value <= 0) return; // Évite des valeurs invalides
+            const date = new Date();
+            date.setTime(date.getTime() + (365 * 24 * 60 * 60 * 1000)); // 1 an
+            const expires = "; expires=" + date.toUTCString();
+            document.cookie = `${cookieName}=${encodeURIComponent(value)}${expires}; path=/; SameSite=Lax`;
+        }
+    </script>
+</body>
+</html>
